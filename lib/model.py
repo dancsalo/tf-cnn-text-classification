@@ -1,3 +1,9 @@
+# --------------------------------------------------------
+# CNN Text Classification
+# Copyright (c) 2017 Automated Insights
+# Written by Dan Salo
+# --------------------------------------------------------
+
 import tensorflow as tf
 import numpy as np
 import logging
@@ -9,7 +15,7 @@ import sys
 
 class Model:
     """
-    A Class for easy Model Training.
+    A Class for easy Model Training. Taken from TensorBase modele. dancsalo@github.
     Methods:
         See list in __init__() function
     """

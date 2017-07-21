@@ -1,14 +1,11 @@
-#!/usr/bin/env python
-
-"""
-@author: Dan Salo, Jan 2017
-Purpose: Implement Convolutional Variational Autoencoder for Semi-Supervision with partially-labeled MNIST dataset.
-MNIST Dataset will be downloaded and batched automatically.
-"""
+# --------------------------------------------------------
+# CNN Text Classification
+# Copyright (c) 2017 Automated Insights
+# Written by Dan Salo
+# --------------------------------------------------------
 
 import argparse
 import tensorflow as tf
-import os.path as osp
 
 from importlib import import_module
 
@@ -16,7 +13,7 @@ from lib.model import Model
 from lib.config import cfg
 
 
-class TextModel(Model):
+class TextClassification(Model):
     def __init__(self, flags_input, cfg):
         flags_input['DATASET'] = getattr(import_module('lib.datasets'), flags_input['DATASET'])
         flags_input['ARCHITECTURE'] = getattr(import_module('lib.networks'), flags_input['ARCHITECTURE'])
@@ -95,7 +92,7 @@ def main():
     parser.add_argument('-a', '--ARCHITECTURE', default='OneLayerConv')
     flags = vars(parser.parse_args())
 
-    model = TextModel(flags, cfg)
+    model = TextClassification(flags, cfg)
     if flags['TRAINING'] == 1:
         model.train()
     if flags['EVAL'] == 1:

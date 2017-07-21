@@ -1,3 +1,9 @@
+# --------------------------------------------------------
+# CNN Text Classification
+# Copyright (c) 2017 Automated Insights
+# Written by Dan Salo
+# --------------------------------------------------------
+
 from tensorflow.contrib import learn
 
 import numpy as np
@@ -13,6 +19,9 @@ class TweetSentiment():
         self.num_batches_per_epoch = int((self.num_train_examples - 1) / self.flags['TRAIN']['BATCH_SIZE']) + 1
 
     def load_data(self):
+        """
+        Load the Twitter data, preprocess, and return to initializing function
+        """
         x_text, y = self.load_data_and_labels(self.flags['DATA']['POS_FILE'], self.flags['DATA']['NEG_FILE'])
 
         # Build vocabulary
@@ -82,11 +91,17 @@ class TweetSentiment():
         return [x_text, y]
 
     def transform_x(self, x):
+        """
+        Transforms an array of numbers that correspond to words in the vocab into those words
+        """
         x_text = [self.vocab_dict[number] for number in x if number != 0]
         return ' '.join(x_text)
 
     @staticmethod
     def transform_y(y):
+        """
+        Transforms an array of labels the correspond to the data categories and returns that category
+        """
         y_label = np.argmax(y)
         if y_label == 0:
             return 'negative'

@@ -1,5 +1,9 @@
-import os.path as osp
-# `pip install easydict` if you don't have it
+# --------------------------------------------------------
+# CNN Text Classification
+# Copyright (c) 2017 Automated Insights
+# Written by Dan Salo
+# --------------------------------------------------------
+
 from easydict import EasyDict as edict
 
 __C = edict()

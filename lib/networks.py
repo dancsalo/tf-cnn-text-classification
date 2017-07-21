@@ -1,3 +1,9 @@
+# --------------------------------------------------------
+# CNN Text Classification
+# Copyright (c) 2017 Automated Insights
+# Written by Dan Salo
+# --------------------------------------------------------
+
 import tensorflow as tf
 from tensorflow.contrib import layers
 
@@ -13,12 +19,14 @@ class OneLayerConv:
         self.train_outputs = list()
 
     def inputs(self):
+        """ Define inputs to the computational graph """
         input_x = tf.placeholder(tf.int32, [None, self.seq_length], name="input_x")
         input_y = tf.placeholder(tf.float32, [None, self.flags['DATA']['NUM_CLASSES']], name="input_y")
         dropout_keep_prob = tf.placeholder(tf.float32, name="dropout_keep_prob")
         return input_x, input_y, dropout_keep_prob
 
     def network(self):
+        """ Define the architecture """
         weights_regularizer = tf.contrib.layers.l2_regularizer(self.flags['TRAIN']['WEIGHT_DECAY'])
 
         with tf.device('/cpu:0'), tf.name_scope("embedding"):
@@ -56,6 +64,7 @@ class OneLayerConv:
         return scores
 
     def losses(self):
+        """ Define the losses and relevant metrics """
         predictions = tf.argmax(self.scores, 1, name="predictions")
 
         # CalculateMean cross-entropy loss
@@ -70,6 +79,7 @@ class OneLayerConv:
         return cost, predictions, accuracy
 
     def feed_dict(self, batch, mode):
+        """ Define the feed dictionary for a sess.run call for 'test' and 'train' mode """
         if mode == 'train':
             x_batch, y_batch = zip(*batch)
             return {self.input_x: x_batch, self.input_y: y_batch, self.dropout_keep_prob: self.flags['TRAIN']['KEEP_PROB']}
@@ -78,6 +88,7 @@ class OneLayerConv:
             return {self.input_x: x_batch, self.input_y: y_batch, self.dropout_keep_prob: 1.0}
 
     def outputs(self, list_to_add, mode):
+        """ Define the outputs for a sess.run call for 'test' and 'train' mode """
         if mode == 'train':
             list_to_add.append(self.cost)
             self.train_outputs.append('Total Cost')
@@ -90,7 +101,7 @@ class OneLayerConv:
             return list_to_add
 
     def record_metrics(self, outputs, mode):
-        """ Record training metrics """
+        """ Record metrics for 'train' mode """
         if mode == 'train':
             output_string = ""
             for string, value in zip(self.train_outputs, outputs[2:]):
@@ -98,5 +109,6 @@ class OneLayerConv:
             return output_string
 
     def summaries(self):
+        """ Define TF summaries to be called in train-eval.py file """
         tf.summary.scalar("Total_Loss", self.cost)
         tf.summary.scalar("Accuracy", self.accuracy)
