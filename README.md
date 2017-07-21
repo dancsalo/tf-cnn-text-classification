@@ -1,7 +1,6 @@
 # Text Classification with CNNs
-This code repository implements the code and one dataset of
-[A Sensntivity Analysis (and Practitioners' Guide to) Convolutional Neural Networks for Sentence Classification]
-(https://arxiv.org/abs/1510.03820), which are a one-layer CNN model and
+This code repository implements the neural network and one dataset from
+[A Sensntivity Analysis (and Practitioners' Guide to) Convolutional Neural Networks for Sentence Classification](https://arxiv.org/abs/1510.03820), which are a one-layer CNN and
 the Twitter Polarity dataset respectively.
 
 ### Dependencies
