@@ -13,16 +13,16 @@ import re
 class TweetSentiment():
     def __init__(self, flags):
         self.flags = flags
-        self.train_data, self.test_data, self.seq_length, self.vocab_size, self.vocab_dict = self.load_data()
+        self.train_data, self.test_data, self.seq_length, self.vocab_size, self.vocab_dict = self._load_data()
         self.num_train_examples = len(self.train_data)
         self.num_test_examples = len(self.test_data)
         self.num_batches_per_epoch = int((self.num_train_examples - 1) / self.flags['TRAIN']['BATCH_SIZE']) + 1
 
-    def load_data(self):
+    def _load_data(self):
         """
         Load the Twitter data, preprocess, and return to initializing function
         """
-        x_text, y = self.load_data_and_labels(self.flags['DATA']['POS_FILE'], self.flags['DATA']['NEG_FILE'])
+        x_text, y = self._load_data_and_labels(self.flags['DATA']['POS_FILE'], self.flags['DATA']['NEG_FILE'])
 
         # Build vocabulary
         max_document_length = max([len(x.split(" ")) for x in x_text])
@@ -71,7 +71,7 @@ class TweetSentiment():
                 end_index = min((batch_num + 1) * batch_size, data_size)
                 yield shuffled_data[start_index:end_index]
 
-    def load_data_and_labels(self, positive_data_file, negative_data_file):
+    def _load_data_and_labels(self, positive_data_file, negative_data_file):
         """
         Loads MR polarity data from files, splits the data into words and generates labels.
         Returns split sentences and labels.
@@ -83,7 +83,7 @@ class TweetSentiment():
         negative_examples = [s.strip() for s in negative_examples]
         # Split by words
         x_text = positive_examples + negative_examples
-        x_text = [self.clean_str(sent) for sent in x_text]
+        x_text = [self._clean_str(sent) for sent in x_text]
         # Generate labels
         positive_labels = [[0, 1] for _ in positive_examples]
         negative_labels = [[1, 0] for _ in negative_examples]
@@ -109,7 +109,7 @@ class TweetSentiment():
             return 'positive'
 
     @staticmethod
-    def clean_str(string):
+    def _clean_str(string):
         """
         Tokenization/string cleaning for all datasets except for SST.
         Original taken from https://github.com/yoonkim/CNN_sentence/blob/master/process_data.py
