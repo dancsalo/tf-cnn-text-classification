@@ -57,8 +57,8 @@ __C.DATA.RTPolarity.NEG_FILE = "./data/rt-polaritydata/rt-polarity.neg"
 __C.DATA.RTPolarity.NUM_CLASSES = 2
 
 # Rotten Tomatoes - Imdb Parameters
-__C.DATA.RTImdbSentiment = edict()
+__C.DATA.RTImdbSubj = edict()
 
-__C.DATA.RTImdbSentiment.OBJ_FILE = "./data/rotten_imdb/plot.tok.gt9.5000"
-__C.DATA.RTImdbSentiment.SUBJ_FILE = "./data/rotten_imdb/quote.tok.gt9.5000"
-__C.DATA.RTImdbSentiment.NUM_CLASSES = 2
+__C.DATA.RTImdbSubj.OBJ_FILE = "./data/rotten_imdb/plot.tok.gt9.5000"
+__C.DATA.RTImdbSubj.SUBJ_FILE = "./data/rotten_imdb/quote.tok.gt9.5000"
+__C.DATA.RTImdbSubj.NUM_CLASSES = 2

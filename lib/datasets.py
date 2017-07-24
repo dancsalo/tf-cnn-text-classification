@@ -132,9 +132,9 @@ class RTPolarity:
         return string.strip().lower()
 
 
-class RTImdbSentiment:
+class RTImdbSubj:
     def __init__(self, flags):
-        self.name = 'RTImdbSentiment'
+        self.name = 'RTImdbSubj'
         self.flags = flags
         self.train_data, self.test_data, self.seq_length, self.vocab_size, self.vocab_dict = self._load_data()
         self.num_train_examples = len(self.train_data)
