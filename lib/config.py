@@ -49,7 +49,16 @@ __C.NETWORK.HIDDEN_SIZE = 128
 
 __C.DATA = edict()
 
-# Tweet Sentiment Parameters
-__C.DATA.POS_FILE = "./data/rt-polaritydata/rt-polarity.pos"
-__C.DATA.NEG_FILE = "./data/rt-polaritydata/rt-polarity.neg"
-__C.DATA.NUM_CLASSES = 2
+# Rotten Tomatoes Polarity Parameters
+__C.DATA.RTPolarity = edict()
+
+__C.DATA.RTPolarity.POS_FILE = "./data/rt-polaritydata/rt-polarity.pos"
+__C.DATA.RTPolarity.NEG_FILE = "./data/rt-polaritydata/rt-polarity.neg"
+__C.DATA.RTPolarity.NUM_CLASSES = 2
+
+# Rotten Tomatoes - Imdb Parameters
+__C.DATA.RTImdbSubj = edict()
+
+__C.DATA.RTImdbSubj.OBJ_FILE = "./data/rotten_imdb/plot.tok.gt9.5000"
+__C.DATA.RTImdbSubj.SUBJ_FILE = "./data/rotten_imdb/quote.tok.gt9.5000"
+__C.DATA.RTImdbSubj.NUM_CLASSES = 2
