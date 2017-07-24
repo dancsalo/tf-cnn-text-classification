@@ -15,6 +15,7 @@ from lib.config import cfg
 
 class TextClassification(Model):
     def __init__(self, flags_input, cfg):
+        flags_input['DATASET_NAME'] = flags_input['DATASET']
         flags_input['DATASET'] = getattr(import_module('lib.datasets'), flags_input['DATASET'])
         flags_input['ARCHITECTURE'] = getattr(import_module('lib.networks'), flags_input['ARCHITECTURE'])
         super().__init__(flags_input, cfg)
@@ -88,7 +89,7 @@ def main():
     parser.add_argument('-e', '--EVAL', default=1, type=int)  # Binary to evalulate model. 0 = No eval.
     parser.add_argument('-g', '--GPU', default=0, type=int)  # specifiy which GPU to use. Defaults to only one GPU.
     parser.add_argument('-y', '--YAML_FILE', default='cfgs/OneLayerConv.yml', type=str)
-    parser.add_argument('-d', '--DATASET', default='TweetSentiment', type=str)
+    parser.add_argument('-d', '--DATASET', default='RTPolarity', type=str)  # other option, RTImdbSentiment
     parser.add_argument('-a', '--ARCHITECTURE', default='OneLayerConv')
     flags = vars(parser.parse_args())
 

@@ -73,10 +73,11 @@ class Model:
         """ Create and define logging directory """
         folder = 'Model' + str(self.flags['RUN_NUM']) + '/'
         folder_restore = 'Model' + str(self.flags['MODEL_RESTORE']) + '/'
+        print(self.flags['DATASET'])
         self.flags['RESTORE_DIRECTORY'] = self.flags['SAVE_DIRECTORY'] + self.flags[
-            'MODEL_DIRECTORY'] + folder_restore
+            'MODEL_DIRECTORY'] + self.flags['DATASET_NAME'] + '/' + folder_restore
         self.flags['LOGGING_DIRECTORY'] = self.flags['SAVE_DIRECTORY'] + self.flags[
-            'MODEL_DIRECTORY'] + folder
+            'MODEL_DIRECTORY'] + self.flags['DATASET_NAME'] + '/' + folder
         self.make_directory(self.flags['LOGGING_DIRECTORY'])
         sys.stdout = Logger(self.flags['LOGGING_DIRECTORY'] + 'ModelInformation.log')
         print(self.flags)

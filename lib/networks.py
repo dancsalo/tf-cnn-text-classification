@@ -11,6 +11,7 @@ from tensorflow.contrib import layers
 class OneLayerConv:
     def __init__(self, flags, Data):
         self.flags = flags
+        self.data_name = flags['DATASET_NAME']
         self.vocab_size = Data.vocab_size
         self.seq_length = Data.seq_length
         self.input_x, self.input_y, self.dropout_keep_prob = self.inputs()
@@ -21,7 +22,7 @@ class OneLayerConv:
     def inputs(self):
         """ Define inputs to the computational graph """
         input_x = tf.placeholder(tf.int32, [None, self.seq_length], name="input_x")
-        input_y = tf.placeholder(tf.float32, [None, self.flags['DATA']['NUM_CLASSES']], name="input_y")
+        input_y = tf.placeholder(tf.float32, [None, self.flags['DATA'][self.data_name]['NUM_CLASSES']], name="input_y")
         dropout_keep_prob = tf.placeholder(tf.float32, name="dropout_keep_prob")
         return input_x, input_y, dropout_keep_prob
 
@@ -59,7 +60,8 @@ class OneLayerConv:
 
         # Final (unnormalized) mean and stddev
         with tf.name_scope("scores"):
-            scores = layers.fully_connected(h_drop, num_outputs=self.flags['DATA']['NUM_CLASSES'], activation_fn=None,
+            scores = layers.fully_connected(h_drop, num_outputs=self.flags['DATA'][self.data_name]['NUM_CLASSES'],
+                                                                                   activation_fn=None,
                                             weights_regularizer=weights_regularizer)
         return scores
 
